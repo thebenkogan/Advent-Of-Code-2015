@@ -37,6 +37,10 @@ type Vector struct {
 	X, Y int
 }
 
+func (v *Vector) Hash() string {
+	return fmt.Sprintf("%d,%d", v.X, v.Y)
+}
+
 var DIRS = []Vector{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
 
 func StringPermutations(s string) []string {
