@@ -56,3 +56,21 @@ func StringPermutations(s string) []string {
 	}
 	return perms
 }
+
+func Map[E, V any](input []E, f func(E) V) []V {
+	out := make([]V, 0, len(input))
+	for _, e := range input {
+		out = append(out, f(e))
+	}
+	return out
+}
+
+func Filter[E any](input []E, f func(E) bool) []E {
+	out := make([]E, 0)
+	for _, e := range input {
+		if f(e) {
+			out = append(out, e)
+		}
+	}
+	return out
+}
