@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"slices"
 	"strconv"
 )
 
@@ -43,18 +44,21 @@ func (v *Vector) Hash() string {
 
 var DIRS = []Vector{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
 
-func StringPermutations(s string) []string {
-	if len(s) == 1 {
-		return []string{s}
+func Permutations[T any](a []T) [][]T {
+	var res [][]T
+	calPermutations(a, &res, 0)
+	return res
+}
+
+func calPermutations[T any](arr []T, res *[][]T, k int) {
+	for i := k; i < len(arr); i++ {
+		arr[k], arr[i] = arr[i], arr[k]
+		calPermutations(arr, res, k+1)
+		arr[i], arr[k] = arr[k], arr[i]
 	}
-	perms := []string{}
-	for i, c := range s {
-		rest := s[:i] + s[i+1:]
-		for _, perm := range StringPermutations(rest) {
-			perms = append(perms, string(c)+perm)
-		}
+	if k == len(arr)-1 {
+		*res = append(*res, slices.Clone(arr))
 	}
-	return perms
 }
 
 func Map[E, V any](input []E, f func(E) V) []V {
