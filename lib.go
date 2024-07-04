@@ -43,6 +43,7 @@ func (v *Vector) Hash() string {
 }
 
 var DIRS = []Vector{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+var ALL_DIRS = []Vector{{1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {-1, 1}, {-1, 0}, {-1, -1}}
 
 func Permutations[T any](a []T) [][]T {
 	var res [][]T
